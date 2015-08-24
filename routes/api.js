@@ -1,6 +1,9 @@
 var express = require('express');
 var cache = require('express-redis-cache')({
-    expire: 60
+    expire: {
+        200: 120,
+        500: 5
+    }
 });
 var router = express.Router();
 var request = require('request');
@@ -28,6 +31,13 @@ router.get(
             res.json({
                 requestedUser: req.params.user,
                 collection: collection
+            });
+        }).catch(function(err) {
+            res.status(500);
+            res.json({
+                requestedUser: req.params.user,
+                collection: [],
+                error: 'Collection not found'
             });
         });
     });

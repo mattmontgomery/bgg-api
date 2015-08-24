@@ -28,32 +28,34 @@ var bgg = {
         ]).then(this.combineExpansions).then(this.sortCollection);
     },
     parseCollection: function(isExpansion, collection) {
-        if (!(collection && collection.items && _.isArray(collection.items.item))) {
-            return collection;
-        }
-        return _.map(collection.items.item, function(item) {
-            var model = new ItemModel({
-                objectId: item.objectid,
-                collectionId: item.collid,
-                name: item.name.$t,
-                yearPublished: item.yearpublished,
-                image: item.image,
-                thumbnail: item.thumbnail,
-                minPlayers: item.stats.minplayers,
-                maxPlayers: item.stats.maxplayers,
-                minPlayTime: item.stats.minplaytime,
-                maxPlayTime: item.stats.maxplaytime,
-                numOwned: item.stats.numowned,
-                rating: parseFloat(item.stats.rating.value),
-                ratingAverage: parseFloat(item.stats.rating.average.value),
-                ratingBayesAverage: parseFloat(item.stats.rating.bayesaverage.value),
-                ratingStdDev: parseFloat(item.stats.rating.stddev.value),
-                status: item.status,
-                numPlays: item.numplays,
-                isExpansion: isExpansion
+        return new Promise(function(resolve, reject) {
+            if (!(collection && collection.items && _.isArray(collection.items.item))) {
+                reject();
+            }
+            resolve(_.map(collection.items.item, function(item) {
+                var model = new ItemModel({
+                    objectId: item.objectid,
+                    collectionId: item.collid,
+                    name: item.name.$t,
+                    yearPublished: item.yearpublished,
+                    image: item.image,
+                    thumbnail: item.thumbnail,
+                    minPlayers: item.stats.minplayers,
+                    maxPlayers: item.stats.maxplayers,
+                    minPlayTime: item.stats.minplaytime,
+                    maxPlayTime: item.stats.maxplaytime,
+                    numOwned: item.stats.numowned,
+                    rating: parseFloat(item.stats.rating.value),
+                    ratingAverage: parseFloat(item.stats.rating.average.value),
+                    ratingBayesAverage: parseFloat(item.stats.rating.bayesaverage.value),
+                    ratingStdDev: parseFloat(item.stats.rating.stddev.value),
+                    status: item.status,
+                    numPlays: item.numplays,
+                    isExpansion: isExpansion
 
-            });
-            return model.attributes;
+                });
+                return model.attributes;
+            }));
         });
     },
     combineExpansions: function(collections) {
