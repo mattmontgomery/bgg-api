@@ -1,9 +1,6 @@
 var express = require('express');
 var cache = require('express-redis-cache')({
-    expire: {
-        200: 120,
-        500: 5
-    }
+    expire: 5
 });
 var router = express.Router();
 var request = require('request');

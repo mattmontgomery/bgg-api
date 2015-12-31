@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "backbone": "^1.2.2",
+    "bgg": "^1.0.0",
     "bluebird": "^2.9.34",
     "body-parser": "~1.0.0",
     "cookie-parser": "~1.0.1",

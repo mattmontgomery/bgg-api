@@ -4,7 +4,9 @@ var queryString = require('query-string');
 var apiBase = 'http://www.boardgamegeek.com/xmlapi2/';
 var _ = require('lodash');
 var parser = require('xml2json');
-var bggApi = require('bgg');
+var bggApi = require('bgg')({
+    timeout: 10000
+});
 var Backbone = require('backbone');
 
 var ItemModel = Backbone.Model.extend({});
