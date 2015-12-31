@@ -1,7 +1,8 @@
 var express = require('express');
-var cache = require('express-redis-cache')({
-    expire: 5
-});
+/*var cache = require('express-redis-cache')({
+    expire: 5,
+    host: process.env.REDIS_URL
+});*/
 var router = express.Router();
 var request = require('request');
 var bgg = require('../src/api/bgg');
@@ -20,7 +21,7 @@ router.get(
         res.set({'Access-Control-Allow-Origin':'*'});
         next();
     },
-    cache.route(),
+    /*cache.route(),*/
     function(req, res) {
         var collection = bgg.getCollection(req.params.user);
         collection.then(function(collection) {
