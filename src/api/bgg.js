@@ -31,8 +31,11 @@ var bgg = {
     },
     parseCollection: function(isExpansion, collection) {
         return new Promise(function(resolve, reject) {
+            if (_.isObject(collection) && collection.errors) {
+                reject(collection.errors);
+            }
             if (!(collection && collection.items && _.isArray(collection.items.item))) {
-                reject();
+                reject(collection);
             }
             resolve(_.map(collection.items.item, function(item) {
                 var model = new ItemModel({

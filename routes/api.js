@@ -35,7 +35,8 @@ router.get(
             res.json({
                 requestedUser: req.params.user,
                 collection: [],
-                error: 'Collection not found'
+                error: 'Collection not found',
+                errors: err
             });
         });
     });
